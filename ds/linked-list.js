@@ -171,10 +171,6 @@ class LinkedList{
         }
         return string
     }
-}
+} 
 
-const ll = new LinkedList()
-
-
-
-console.log(ll.toString())
+module.exports = LinkedList

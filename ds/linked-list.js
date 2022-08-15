@@ -48,8 +48,29 @@ class LinkedList{
         this.count++
     }
 
-    insert(element, position){
+    insert(value, index){
+        // Verifica se o índice está dentro do tamanho a linked list
+        if(index >= 0 && index <= this.count){
+            // Cria um novo nó com o valor passado
+            const node = new Node(value)
+            // Se o nó for ser inserido no índice 0 (primeira posição da LL)
+            if(index === 0){
+                let current = this.head
+                node.next = current
+                this.next = node 
+            }else{
+                // Se o nó for inserido em qualquer outro lugar que não seja o índice 0
+                const previous = this.getElementAt(index - 1)
+                const current = previous.next
+                previous.next = node
+                node.next =  current
+            }
+            // Atualiza o tamanho da Linked List
+            this.count++
+            return true
+        }  
 
+        return false
     }
 
     getElementAt(index){
@@ -64,12 +85,25 @@ class LinkedList{
         return
     }
 
-    remove(element){
-
+    remove(value){
+        // Busca o índice do nó do valor passado
+        const index = this.indexOf(value)
+        // Remove o nó se o índice tiver sido encontrado
+        this.removeAt(index)
     }
 
-    indexOf(element){
-
+    indexOf(value){
+        // Armazena o primeiro item da linked list
+        let current = this.head
+        for(let i = 0; i < this.count; i++){
+            // Se o valor do item atual na iteração for igual ao valor fornecido, retorna o índice 
+            if(this.equalsFn(value, current.value)){
+                return i
+            }
+            // Atualiza o elemento atual na iteração
+            current = current.next
+        }
+        return -1
     }
 
     removeAt(index){
@@ -116,23 +150,31 @@ class LinkedList{
         return
     }
 
+    getHead(){
+        return this.head
+    }
+
     isEmpty(){
-        
+        return this.count === 0
     }
 
     size(){
-
+        return this.count
     }
 
     toString(){
-
+        let current = this.head
+        let string = ''
+        for(let i = 0; i < this.count; i++){
+            string += current.value
+            current = current.next
+        }
+        return string
     }
 }
 
 const ll = new LinkedList()
 
-ll.push('a')
-ll.push('b')
-ll.push('c')
 
-console.log(ll.refactoredRemoveAt(1))
+
+console.log(ll.toString())
